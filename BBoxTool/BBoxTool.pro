@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
+TARGET = opencvtest
+TEMPLATE = app
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -16,14 +18,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    editwindow.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    editwindow.h \
     mainwindow.h
 
 FORMS += \
+    editwindow.ui \
     mainwindow.ui
+
+INCLUDEPATH += D:\opencv\opencv\build\include
+
+LIBS += D:\opencv\opencv\opencv-build\bin\libopencv_core420.dll
+LIBS += D:\opencv\opencv\opencv-build\bin\libopencv_highgui420.dll
+LIBS += D:\opencv\opencv\opencv-build\bin\libopencv_imgcodecs420.dll
+LIBS += D:\opencv\opencv\opencv-build\bin\libopencv_imgproc420.dll
+LIBS += D:\opencv\opencv\opencv-build\bin\libopencv_features2d420.dll
+LIBS += D:\opencv\opencv\opencv-build\bin\libopencv_calib3d420.dll
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
