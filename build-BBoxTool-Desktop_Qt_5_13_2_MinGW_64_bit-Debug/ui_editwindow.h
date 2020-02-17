@@ -16,6 +16,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -26,7 +28,7 @@ class Ui_EditWindow
 {
 public:
     QWidget *centralwidget;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QLabel *lblDirectoryName;
@@ -36,7 +38,16 @@ public:
     QListView *listAllFiles;
     QLabel *label_3;
     QLabel *lblCurrentSelection;
+    QVBoxLayout *verticalLayout_2;
     QGraphicsView *gvMainImageView;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *btnPrev;
+    QSpacerItem *horizontalSpacer_4;
+    QPushButton *btnReset;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *btnNext;
+    QSpacerItem *horizontalSpacer_2;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *EditWindow)
@@ -46,8 +57,8 @@ public:
         EditWindow->resize(1074, 644);
         centralwidget = new QWidget(EditWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        horizontalLayout = new QHBoxLayout(centralwidget);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout_2 = new QHBoxLayout(centralwidget);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label = new QLabel(centralwidget);
@@ -106,12 +117,55 @@ public:
         verticalLayout->addWidget(lblCurrentSelection);
 
 
-        horizontalLayout->addLayout(verticalLayout);
+        horizontalLayout_2->addLayout(verticalLayout);
 
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         gvMainImageView = new QGraphicsView(centralwidget);
         gvMainImageView->setObjectName(QString::fromUtf8("gvMainImageView"));
+        gvMainImageView->setAutoFillBackground(false);
+        gvMainImageView->setLineWidth(5);
 
-        horizontalLayout->addWidget(gvMainImageView);
+        verticalLayout_2->addWidget(gvMainImageView);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        btnPrev = new QPushButton(centralwidget);
+        btnPrev->setObjectName(QString::fromUtf8("btnPrev"));
+
+        horizontalLayout->addWidget(btnPrev);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_4);
+
+        btnReset = new QPushButton(centralwidget);
+        btnReset->setObjectName(QString::fromUtf8("btnReset"));
+
+        horizontalLayout->addWidget(btnReset);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_3);
+
+        btnNext = new QPushButton(centralwidget);
+        btnNext->setObjectName(QString::fromUtf8("btnNext"));
+
+        horizontalLayout->addWidget(btnNext);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
+
+        verticalLayout_2->addLayout(horizontalLayout);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_2);
 
         EditWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(EditWindow);
@@ -133,6 +187,9 @@ public:
         label_4->setText(QCoreApplication::translate("EditWindow", "File List", nullptr));
         label_3->setText(QCoreApplication::translate("EditWindow", "Current Selected File", nullptr));
         lblCurrentSelection->setText(QCoreApplication::translate("EditWindow", "Select File", nullptr));
+        btnPrev->setText(QCoreApplication::translate("EditWindow", "<< Previous", nullptr));
+        btnReset->setText(QCoreApplication::translate("EditWindow", "Reset Image", nullptr));
+        btnNext->setText(QCoreApplication::translate("EditWindow", "Next >>", nullptr));
     } // retranslateUi
 
 };

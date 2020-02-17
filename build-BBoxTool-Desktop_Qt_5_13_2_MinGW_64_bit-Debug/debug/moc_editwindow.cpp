@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_EditWindow_t {
-    QByteArrayData data[5];
-    char stringdata0[54];
+    QByteArrayData data[11];
+    char stringdata0[126];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,11 +36,19 @@ QT_MOC_LITERAL(0, 0, 10), // "EditWindow"
 QT_MOC_LITERAL(1, 11, 23), // "on_listAllFiles_clicked"
 QT_MOC_LITERAL(2, 35, 0), // ""
 QT_MOC_LITERAL(3, 36, 11), // "QModelIndex"
-QT_MOC_LITERAL(4, 48, 5) // "index"
+QT_MOC_LITERAL(4, 48, 5), // "index"
+QT_MOC_LITERAL(5, 54, 11), // "eventFilter"
+QT_MOC_LITERAL(6, 66, 6), // "target"
+QT_MOC_LITERAL(7, 73, 7), // "QEvent*"
+QT_MOC_LITERAL(8, 81, 5), // "event"
+QT_MOC_LITERAL(9, 87, 19), // "on_btnReset_clicked"
+QT_MOC_LITERAL(10, 107, 18) // "on_btnNext_clicked"
 
     },
     "EditWindow\0on_listAllFiles_clicked\0\0"
-    "QModelIndex\0index"
+    "QModelIndex\0index\0eventFilter\0target\0"
+    "QEvent*\0event\0on_btnReset_clicked\0"
+    "on_btnNext_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,7 +58,7 @@ static const uint qt_meta_data_EditWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -58,10 +66,16 @@ static const uint qt_meta_data_EditWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   19,    2, 0x08 /* Private */,
+       1,    1,   34,    2, 0x08 /* Private */,
+       5,    2,   37,    2, 0x08 /* Private */,
+       9,    0,   42,    2, 0x08 /* Private */,
+      10,    0,   43,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Bool, QMetaType::QObjectStar, 0x80000000 | 7,    6,    8,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -73,6 +87,10 @@ void EditWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_listAllFiles_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 1: { bool _r = _t->eventFilter((*reinterpret_cast< QObject*(*)>(_a[1])),(*reinterpret_cast< QEvent*(*)>(_a[2])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 2: _t->on_btnReset_clicked(); break;
+        case 3: _t->on_btnNext_clicked(); break;
         default: ;
         }
     }
@@ -107,13 +125,13 @@ int EditWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 4;
     }
     return _id;
 }

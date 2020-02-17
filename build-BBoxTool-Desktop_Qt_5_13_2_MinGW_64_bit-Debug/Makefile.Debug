@@ -224,6 +224,8 @@ debug/moc_editwindow.cpp: ../BBoxTool/editwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtGui/qpen.h \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QRubberBand \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qrubberband.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.13.2/mingw73_64/bin/moc.exe
 	C:\Qt\5.13.2\mingw73_64\bin\moc.exe $(DEFINES) --include "D:/BBox Tool/build-BBoxTool-Desktop_Qt_5_13_2_MinGW_64_bit-Debug/debug/moc_predefs.h" -IC:/Qt/5.13.2/mingw73_64/mkspecs/win32-g++ -I"D:/BBox Tool/BBoxTool" -ID:/opencv/opencv/build/include -IC:/Qt/5.13.2/mingw73_64/include -IC:/Qt/5.13.2/mingw73_64/include/QtWidgets -IC:/Qt/5.13.2/mingw73_64/include/QtGui -IC:/Qt/5.13.2/mingw73_64/include/QtANGLE -IC:/Qt/5.13.2/mingw73_64/include/QtCore -I. -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\BBoxTool\editwindow.h -o debug\moc_editwindow.cpp
@@ -342,6 +344,8 @@ debug/moc_mainwindow.cpp: ../BBoxTool/mainwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtGui/qpen.h \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QRubberBand \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qrubberband.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.13.2/mingw73_64/bin/moc.exe
 	C:\Qt\5.13.2\mingw73_64\bin\moc.exe $(DEFINES) --include "D:/BBox Tool/build-BBoxTool-Desktop_Qt_5_13_2_MinGW_64_bit-Debug/debug/moc_predefs.h" -IC:/Qt/5.13.2/mingw73_64/mkspecs/win32-g++ -I"D:/BBox Tool/BBoxTool" -ID:/opencv/opencv/build/include -IC:/Qt/5.13.2/mingw73_64/include -IC:/Qt/5.13.2/mingw73_64/include/QtWidgets -IC:/Qt/5.13.2/mingw73_64/include/QtGui -IC:/Qt/5.13.2/mingw73_64/include/QtANGLE -IC:/Qt/5.13.2/mingw73_64/include/QtCore -I. -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\BBoxTool\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -486,48 +490,9 @@ debug/editwindow.o: ../BBoxTool/editwindow.cpp ../BBoxTool/editwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtGui/qpen.h \
-		ui_editwindow.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/QVariant \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QApplication \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qapplication.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qeventloop.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qguiapplication.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qinputmethod.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QGraphicsView \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qpainter.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qtextoption.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qframe.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qboxlayout.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlayout.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QLabel \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlabel.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QListView \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlistview.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qvalidator.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qregularexpression.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qslider.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qstyle.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QRubberBand \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qrubberband.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QSplitter \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qsplitter.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QStatusBar \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qstatusbar.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QWidget \
+		ui_editwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtCore/QDirIterator \
 		C:/Qt/5.13.2/mingw73_64/include/QtCore/qdiriterator.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtCore/qdir.h \
@@ -637,7 +602,8 @@ debug/editwindow.o: ../BBoxTool/editwindow.cpp ../BBoxTool/editwindow.h \
 		../../opencv/opencv/build/include/opencv2/video/tracking.hpp \
 		../../opencv/opencv/build/include/opencv2/video/background_segm.hpp \
 		C:/Qt/5.13.2/mingw73_64/include/QtCore/QEvent \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/QDebug
+		C:/Qt/5.13.2/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/5.13.2/mingw73_64/include/QtGui/QMouseEvent
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\editwindow.o ..\BBoxTool\editwindow.cpp
 
 debug/main.o: ../BBoxTool/main.cpp ../BBoxTool/mainwindow.h \
@@ -754,6 +720,8 @@ debug/main.o: ../BBoxTool/main.cpp ../BBoxTool/mainwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtGui/qpen.h \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QRubberBand \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qrubberband.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qapplication.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtCore/qcoreapplication.h \
@@ -877,41 +845,9 @@ debug/mainwindow.o: ../BBoxTool/mainwindow.cpp ../BBoxTool/mainwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtGui/qpen.h \
-		ui_mainwindow.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/QVariant \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QApplication \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qapplication.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qeventloop.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qguiapplication.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qinputmethod.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QComboBox \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qcombobox.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtGui/qvalidator.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtCore/qregularexpression.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qslider.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qstyle.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QRubberBand \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qrubberband.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qframe.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QHBoxLayout \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qboxlayout.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlayout.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qgridlayout.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QLabel \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qlabel.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QPushButton \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qpushbutton.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QSpacerItem \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QVBoxLayout \
-		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QWidget \
+		ui_mainwindow.h \
 		C:/Qt/5.13.2/mingw73_64/include/QtCore/QString \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/QFileDialog \
 		C:/Qt/5.13.2/mingw73_64/include/QtWidgets/qfiledialog.h \

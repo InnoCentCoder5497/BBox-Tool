@@ -4,6 +4,13 @@
 #include <QMainWindow>
 #include <QStringListModel>
 #include <QGraphicsScene>
+#include <QGraphicsRectItem>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
+#include <QGraphicsPixmapItem>
+#include <QRubberBand>
 
 namespace Ui {
 class EditWindow;
@@ -19,6 +26,11 @@ public:
 
 private slots:
     void on_listAllFiles_clicked(const QModelIndex &index);
+    bool eventFilter(QObject *target, QEvent *event);
+
+    void on_btnReset_clicked();
+
+    void on_btnNext_clicked();
 
 private:
     Ui::EditWindow *ui;
@@ -26,6 +38,15 @@ private:
     QStringListModel *lstModel;
     QGraphicsScene *scene;
     int shape;
+    QPoint s_origin;
+    QPointF s_relativeOrigin;
+
+    QPoint e_origin;
+    QPointF e_relativeOrigin;
+    cv::Mat image;
+    cv::Rect imgRect;
+    QGraphicsPixmapItem *disImage;
+    QRubberBand *rubberBand = nullptr;
 };
 
 #endif // EDITWINDOW_H
