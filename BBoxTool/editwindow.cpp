@@ -13,6 +13,7 @@
 #include <QRectF>
 #include <QGraphicsRectItem>
 #include <cstdlib>
+#include <QListWidgetItem>
 
 
 EditWindow::EditWindow(QWidget *parent, QString dir, QString shape) :
@@ -28,15 +29,13 @@ EditWindow::EditWindow(QWidget *parent, QString dir, QString shape) :
     this->shape = shape.split(" ")[0].toInt();
 
     // Populate Directory list
-    lstModel = new QStringListModel(this);
-    QStringList list;
+
     QStringList file_extensions = {"*.jpg", "*.png", "*.jpeg" };
     QDirIterator it(this->selectedDir, file_extensions, QDir::Files);
     while (it.hasNext()) {
         list << it.next();
     }
-    lstModel->setStringList(list);
-    ui->listAllFiles->setModel(lstModel);
+    ui->lstFilesList->addItems(list);
 
     // Load Scene on Graphics view
     scene = new QGraphicsScene(this);
@@ -45,7 +44,6 @@ EditWindow::EditWindow(QWidget *parent, QString dir, QString shape) :
     ui->gvMainImageView->setDragMode(QGraphicsView::RubberBandDrag);
 
     // Variables
-
 }
 
 EditWindow::~EditWindow()
@@ -83,40 +81,47 @@ bool EditWindow::eventFilter(QObject *target, QEvent *event)
 }
 
 
-void EditWindow::on_listAllFiles_clicked(const QModelIndex &index)
-{
-    QPen outlinePen(Qt::black);
-    outlinePen.setWidth(2);
-    scene->clear();
-    ui->gvMainImageView->update();
-
-    image = cv::imread(index.data(Qt::DisplayRole).toString().toLocal8Bit().constData(), 1);
-
-    ui->lblCurrentSelection->setText(index.data(Qt::DisplayRole).toString());
-    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
-    cv::resize(image, image, cv::Size(this->shape, this->shape));
-    disImage = scene->addPixmap(QPixmap::fromImage(QImage(image.data,image.cols, image.rows, QImage::Format_RGB888)));
-    scene->addRect(disImage->boundingRect(), outlinePen);
-}
-
 void EditWindow::on_btnReset_clicked()
 {
-    QPen outlinePen(Qt::black);
-    outlinePen.setWidth(2);
-    scene->clear();
-    ui->gvMainImageView->update();
-    image = cv::imread(ui->listAllFiles->currentIndex().data(Qt::DisplayRole).toString().toLocal8Bit().constData(), 1);
-
-    ui->lblCurrentSelection->setText(ui->listAllFiles->currentIndex().data(Qt::DisplayRole).toString());
-    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
-    cv::resize(image, image, cv::Size(this->shape, this->shape));
-    disImage = scene->addPixmap(QPixmap::fromImage(QImage(image.data,image.cols, image.rows, QImage::Format_RGB888)));
-    scene->addRect(disImage->boundingRect(), outlinePen);
+    imgPath = ui->lstFilesList->currentItem()->text();
+    imageLoader(imgPath);
 }
 
 void EditWindow::on_btnNext_clicked()
 {
-    qDebug() << ui->listAllFiles->currentIndex().row();
-    // TODO : get next image from index
+    int cRow = ui->lstFilesList->currentRow();
+    if(cRow + 1 <= list.count() - 1){
+        ui->lstFilesList->setCurrentRow(cRow + 1);
+        imgPath = ui->lstFilesList->currentItem()->text();
+        imageLoader(imgPath);
+    }
+}
 
+void EditWindow::on_lstFilesList_itemClicked(QListWidgetItem *item)
+{
+    imgPath = item->text();
+    imageLoader(imgPath);
+}
+
+void EditWindow::imageLoader(QString path){
+    QPen outlinePen(Qt::black);
+    outlinePen.setWidth(2);
+    scene->clear();
+    ui->gvMainImageView->update();
+    ui->statusbar->showMessage("Current File: " + path);
+    image = cv::imread(path.toLocal8Bit().constData(), 1);
+    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
+    cv::resize(image, image, cv::Size(this->shape, this->shape));
+    disImage = scene->addPixmap(QPixmap::fromImage(QImage(image.data,image.cols, image.rows, QImage::Format_RGB888)));
+    scene->addRect(disImage->boundingRect(), outlinePen);
+}
+
+void EditWindow::on_btnPrev_clicked()
+{
+    int cRow = ui->lstFilesList->currentRow();
+    if(cRow - 1 > -1){
+        ui->lstFilesList->setCurrentRow(cRow - 1);
+        imgPath = ui->lstFilesList->currentItem()->text();
+        imageLoader(imgPath);
+    }
 }

@@ -14,7 +14,7 @@
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -35,9 +35,7 @@ public:
     QLabel *label_2;
     QLabel *lblSelectedImageSize;
     QLabel *label_4;
-    QListView *listAllFiles;
-    QLabel *label_3;
-    QLabel *lblCurrentSelection;
+    QListWidget *lstFilesList;
     QVBoxLayout *verticalLayout_2;
     QGraphicsView *gvMainImageView;
     QHBoxLayout *horizontalLayout;
@@ -61,6 +59,7 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         QFont font;
@@ -94,27 +93,15 @@ public:
 
         verticalLayout->addWidget(label_4);
 
-        listAllFiles = new QListView(centralwidget);
-        listAllFiles->setObjectName(QString::fromUtf8("listAllFiles"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+        lstFilesList = new QListWidget(centralwidget);
+        lstFilesList->setObjectName(QString::fromUtf8("lstFilesList"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(listAllFiles->sizePolicy().hasHeightForWidth());
-        listAllFiles->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(lstFilesList->sizePolicy().hasHeightForWidth());
+        lstFilesList->setSizePolicy(sizePolicy);
 
-        verticalLayout->addWidget(listAllFiles);
-
-        label_3 = new QLabel(centralwidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setFont(font);
-        label_3->setAlignment(Qt::AlignCenter);
-
-        verticalLayout->addWidget(label_3);
-
-        lblCurrentSelection = new QLabel(centralwidget);
-        lblCurrentSelection->setObjectName(QString::fromUtf8("lblCurrentSelection"));
-
-        verticalLayout->addWidget(lblCurrentSelection);
+        verticalLayout->addWidget(lstFilesList);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -185,8 +172,6 @@ public:
         label_2->setText(QCoreApplication::translate("EditWindow", "Image Size", nullptr));
         lblSelectedImageSize->setText(QCoreApplication::translate("EditWindow", "Selected Image Size", nullptr));
         label_4->setText(QCoreApplication::translate("EditWindow", "File List", nullptr));
-        label_3->setText(QCoreApplication::translate("EditWindow", "Current Selected File", nullptr));
-        lblCurrentSelection->setText(QCoreApplication::translate("EditWindow", "Select File", nullptr));
         btnPrev->setText(QCoreApplication::translate("EditWindow", "<< Previous", nullptr));
         btnReset->setText(QCoreApplication::translate("EditWindow", "Reset Image", nullptr));
         btnNext->setText(QCoreApplication::translate("EditWindow", "Next >>", nullptr));

@@ -11,6 +11,8 @@
 #include <opencv2/opencv.hpp>
 #include <QGraphicsPixmapItem>
 #include <QRubberBand>
+#include <QListWidgetItem>
+#include <QStringList>
 
 namespace Ui {
 class EditWindow;
@@ -25,17 +27,20 @@ public:
     ~EditWindow();
 
 private slots:
-    void on_listAllFiles_clicked(const QModelIndex &index);
     bool eventFilter(QObject *target, QEvent *event);
 
     void on_btnReset_clicked();
 
     void on_btnNext_clicked();
 
+    void on_lstFilesList_itemClicked(QListWidgetItem *item);
+    void imageLoader(QString path);
+
+    void on_btnPrev_clicked();
+
 private:
     Ui::EditWindow *ui;
     QString selectedDir;
-    QStringListModel *lstModel;
     QGraphicsScene *scene;
     int shape;
     QPoint s_origin;
@@ -46,7 +51,8 @@ private:
     cv::Mat image;
     cv::Rect imgRect;
     QGraphicsPixmapItem *disImage;
-    QRubberBand *rubberBand = nullptr;
+    QString imgPath;
+    QStringList list;
 };
 
 #endif // EDITWINDOW_H
