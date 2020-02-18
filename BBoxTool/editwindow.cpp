@@ -44,6 +44,9 @@ EditWindow::EditWindow(QWidget *parent, QString dir, QString shape) :
     ui->gvMainImageView->setDragMode(QGraphicsView::RubberBandDrag);
 
     // Variables
+    if(!QDir(selectedDir + "/output").exists()){
+        QDir().mkdir(selectedDir + "/output");
+    }
 }
 
 EditWindow::~EditWindow()
@@ -73,8 +76,18 @@ bool EditWindow::eventFilter(QObject *target, QEvent *event)
                                abs(s_relativeOrigin.rx() - e_relativeOrigin.rx()), abs(s_relativeOrigin.ry() - e_relativeOrigin.ry()));
             cv::rectangle(image, imgRect, cv::Scalar(0, 255, 0));
 
-            disImage->setPixmap(QPixmap::fromImage(QImage(image.data, image.cols, image.rows, QImage::Format_RGB888)));
+            img = QImage(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888);
+            img = img.rgbSwapped();
+            disImage = scene->addPixmap(QPixmap::fromImage(img));
 
+            // TODO : add class options and image width height to make expected string
+            bbox_coordinate_string ="(" + QString::number(s_relativeOrigin.rx()) +  "," + QString::number(s_relativeOrigin.ry()) + ")"
+                    + "->" +
+                    "(" + QString::number(e_relativeOrigin.rx()) +  "," + QString::number(e_relativeOrigin.ry()) + ")\n";
+            bbox_file->write(bbox_coordinate_string.toLocal8Bit());
+            bboxitem = new QListWidgetItem(bbox_coordinate_string);
+            ui->lstBoundingBox->count();
+            ui->lstBoundingBox->insertItem(ui->lstBoundingBox->count() + 1, bboxitem);
         }
     }
     return QMainWindow::eventFilter(target, event);
@@ -99,21 +112,65 @@ void EditWindow::on_btnNext_clicked()
 
 void EditWindow::on_lstFilesList_itemClicked(QListWidgetItem *item)
 {
+    ui->lstBoundingBox->clear();
+    if(bbox_file != nullptr){
+        bbox_file->close();
+        bbox_file = nullptr;
+    }
     imgPath = item->text();
+    imgName = imgPath.split("/")[imgPath.split("/").size() - 1];
+    imgName = imgName.split(".")[0];
     imageLoader(imgPath);
+    if(!QFile::exists(selectedDir + "/output/" + imgName + ".txt")){
+        bbox_file = new QFile(selectedDir + "/output/" + imgName + ".txt");
+        if (!bbox_file->open(QIODevice::ReadWrite | QIODevice::Append)){
+            qDebug() << "File not opening";
+            return;
+        }
+    }
+    else {
+        bbox_file = new QFile(selectedDir + "/output/" + imgName + ".txt");
+        if (!bbox_file->open(QIODevice::ReadWrite | QIODevice::Text)){
+            qDebug() << "File not opening";
+            return;
+        }
+        stream = new QTextStream(bbox_file);
+        while (!stream->atEnd()) {
+            QString line = stream->readLine();
+            QRegExp separator("[(,)]");
+            coordFromFile = line.split(separator);
+            bboxitem = new QListWidgetItem(line);
+
+            // TODO : Convert coordinate from normalized to original
+
+            ui->lstBoundingBox->count();
+            ui->lstBoundingBox->insertItem(ui->lstBoundingBox->count() + 1, bboxitem);\
+
+            imgRect = cv::Rect(coordFromFile[1].toInt(), coordFromFile[2].toInt() ,
+                               abs(coordFromFile[1].toInt() - coordFromFile[4].toInt()), abs(coordFromFile[2].toInt() - coordFromFile[5].toInt()));
+            cv::rectangle(image, imgRect, cv::Scalar(0, 255, 0));
+
+            img = QImage(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888);
+            img = img.rgbSwapped();
+            disImage = scene->addPixmap(QPixmap::fromImage(img));
+        }
+    }
 }
 
 void EditWindow::imageLoader(QString path){
     QPen outlinePen(Qt::black);
     outlinePen.setWidth(2);
     scene->clear();
-    ui->gvMainImageView->update();
     ui->statusbar->showMessage("Current File: " + path);
     image = cv::imread(path.toLocal8Bit().constData(), 1);
-    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
-    cv::resize(image, image, cv::Size(this->shape, this->shape));
-    disImage = scene->addPixmap(QPixmap::fromImage(QImage(image.data,image.cols, image.rows, QImage::Format_RGB888)));
+
+    img = QImage(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888);
+    img = img.rgbSwapped();
+
+    disImage = scene->addPixmap(QPixmap::fromImage(img));
     scene->addRect(disImage->boundingRect(), outlinePen);
+    ui->gvMainImageView->setSceneRect(0, 0, img.width(), img.height());
+    ui->gvMainImageView->update();
 }
 
 void EditWindow::on_btnPrev_clicked()

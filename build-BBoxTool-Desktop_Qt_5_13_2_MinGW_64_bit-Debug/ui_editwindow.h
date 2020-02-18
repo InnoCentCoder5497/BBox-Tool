@@ -46,13 +46,16 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QPushButton *btnNext;
     QSpacerItem *horizontalSpacer_2;
+    QVBoxLayout *verticalLayout_3;
+    QLabel *label_3;
+    QListWidget *lstBoundingBox;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *EditWindow)
     {
         if (EditWindow->objectName().isEmpty())
             EditWindow->setObjectName(QString::fromUtf8("EditWindow"));
-        EditWindow->resize(1074, 644);
+        EditWindow->resize(1581, 985);
         centralwidget = new QWidget(EditWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout_2 = new QHBoxLayout(centralwidget);
@@ -154,6 +157,26 @@ public:
 
         horizontalLayout_2->addLayout(verticalLayout_2);
 
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        verticalLayout_3->addWidget(label_3);
+
+        lstBoundingBox = new QListWidget(centralwidget);
+        lstBoundingBox->setObjectName(QString::fromUtf8("lstBoundingBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(lstBoundingBox->sizePolicy().hasHeightForWidth());
+        lstBoundingBox->setSizePolicy(sizePolicy1);
+
+        verticalLayout_3->addWidget(lstBoundingBox);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_3);
+
         EditWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(EditWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -175,6 +198,7 @@ public:
         btnPrev->setText(QCoreApplication::translate("EditWindow", "<< Previous", nullptr));
         btnReset->setText(QCoreApplication::translate("EditWindow", "Reset Image", nullptr));
         btnNext->setText(QCoreApplication::translate("EditWindow", "Next >>", nullptr));
+        label_3->setText(QCoreApplication::translate("EditWindow", "Bounding Boxes :", nullptr));
     } // retranslateUi
 
 };

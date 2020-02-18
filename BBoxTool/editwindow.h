@@ -13,6 +13,8 @@
 #include <QRubberBand>
 #include <QListWidgetItem>
 #include <QStringList>
+#include <QFile>
+#include <QTextStream>
 
 namespace Ui {
 class EditWindow;
@@ -51,8 +53,12 @@ private:
     cv::Mat image;
     cv::Rect imgRect;
     QGraphicsPixmapItem *disImage;
-    QString imgPath;
-    QStringList list;
+    QString imgPath, imgName, bbox_coordinate_string;
+    QStringList list, fileSplit, coordFromFile;
+    QImage img;
+    QListWidgetItem *bboxitem;
+    QFile *bbox_file = nullptr;
+    QTextStream *stream = nullptr;
 };
 
 #endif // EDITWINDOW_H
