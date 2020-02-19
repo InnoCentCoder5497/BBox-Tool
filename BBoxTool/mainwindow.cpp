@@ -8,11 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    QStringList imgShapes = {"256 x 256", "512 x 512", "416 x 416", "227 x 227"};
-    for(auto& i : imgShapes){
-        ui->cbImageSizeSelector->addItem(i);
-    }
+    ui->setupUi(this);  
 }
 
 MainWindow::~MainWindow()
@@ -31,9 +27,7 @@ void MainWindow::on_btnSelectDir_clicked()
 
 void MainWindow::on_btnStart_clicked()
 {
-    QString imgShape = ui->cbImageSizeSelector->currentText();
-
-    editwindow = new EditWindow(this, this->dir, imgShape);
+    editwindow = new EditWindow(this, this->dir);
     editwindow->setAttribute(Qt::WA_DeleteOnClose);
     connect(editwindow, SIGNAL(destroyed()), this, SLOT(show()));
 

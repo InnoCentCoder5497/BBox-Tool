@@ -2,34 +2,22 @@
 #include "ui_editwindow.h"
 
 #include <QDirIterator>
-#include <QGraphicsScene>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/opencv.hpp>
 #include <QEvent>
 #include <QDebug>
-#include <QMouseEvent>
-#include <QRectF>
-#include <QGraphicsRectItem>
 #include <cstdlib>
-#include <QListWidgetItem>
 
-
-EditWindow::EditWindow(QWidget *parent, QString dir, QString shape) :
+EditWindow::EditWindow(QWidget *parent, QString dir) :
     QMainWindow(parent),
     ui(new Ui::EditWindow)
 {
+    // Basic construction of mainwindow
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
+    // initialize selected directory
     ui->lblDirectoryName->setText(dir);
-    ui->lblSelectedImageSize->setText(shape);
-
     this->selectedDir = dir;
-    this->shape = shape.split(" ")[0].toInt();
 
     // Populate Directory list
-
     QStringList file_extensions = {"*.jpg", "*.png", "*.jpeg" };
     QDirIterator it(this->selectedDir, file_extensions, QDir::Files);
     while (it.hasNext()) {
@@ -43,7 +31,7 @@ EditWindow::EditWindow(QWidget *parent, QString dir, QString shape) :
     ui->gvMainImageView->setScene(scene);
     ui->gvMainImageView->setDragMode(QGraphicsView::RubberBandDrag);
 
-    // Variables
+    // Create output directory if not exists in current cirectory
     if(!QDir(selectedDir + "/output").exists()){
         QDir().mkdir(selectedDir + "/output");
     }
@@ -62,101 +50,155 @@ bool EditWindow::eventFilter(QObject *target, QEvent *event)
 
     if (target == scene)
     {
+        // get initial coordinates
         if (event->type() == QEvent::GraphicsSceneMousePress)
         {
             s_origin = ui->gvMainImageView->mapFromGlobal(QCursor::pos());
             s_relativeOrigin = ui->gvMainImageView->mapToScene(s_origin);
         }
-        else if (event->type() == QEvent::GraphicsSceneMouseMove){
+        //get final coordinate and stuff
+        else if (event->type() == QEvent::GraphicsSceneMouseRelease){
             e_origin = ui->gvMainImageView->mapFromGlobal(QCursor::pos());
             e_relativeOrigin = ui->gvMainImageView->mapToScene(e_origin);
-        }
-        else if (event->type() == QEvent::GraphicsSceneMouseRelease){
-            imgRect = cv::Rect(s_relativeOrigin.rx(), s_relativeOrigin.ry() ,
-                               abs(s_relativeOrigin.rx() - e_relativeOrigin.rx()), abs(s_relativeOrigin.ry() - e_relativeOrigin.ry()));
-            cv::rectangle(image, imgRect, cv::Scalar(0, 255, 0));
 
-            img = QImage(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888);
-            img = img.rgbSwapped();
-            disImage = scene->addPixmap(QPixmap::fromImage(img));
+            // Draw rectangle
+            drawrect(s_relativeOrigin.rx(), s_relativeOrigin.ry(), e_relativeOrigin.rx(), e_relativeOrigin.ry());
 
-            // TODO : add class options and image width height to make expected string
+            // TODO : add class options
+
+            // get center point, width, height of bbox in normalized form
+            float cx = ((s_relativeOrigin.rx() + e_relativeOrigin.rx()) / 2) / img.width();
+            float cy = ((s_relativeOrigin.ry() + e_relativeOrigin.ry()) / 2) / img.height();
+            float bw = (abs(e_relativeOrigin.rx() - s_relativeOrigin.rx())) / img.width();
+            float bh = (abs(e_relativeOrigin.ry() - s_relativeOrigin.ry())) / img.height();
+
+            // string to display on right list for bboxes
             bbox_coordinate_string ="(" + QString::number(s_relativeOrigin.rx()) +  "," + QString::number(s_relativeOrigin.ry()) + ")"
                     + "->" +
                     "(" + QString::number(e_relativeOrigin.rx()) +  "," + QString::number(e_relativeOrigin.ry()) + ")\n";
-            bbox_file->write(bbox_coordinate_string.toLocal8Bit());
+            // adding string to list
             bboxitem = new QListWidgetItem(bbox_coordinate_string);
-            ui->lstBoundingBox->count();
             ui->lstBoundingBox->insertItem(ui->lstBoundingBox->count() + 1, bboxitem);
+
+            // string to write to output file
+            bbox_rw_string = "1 " + QString::number(cx) + " " + QString::number(cy) + " " + QString::number(bw) + " " + QString::number(bh) + "\n";
+            // writing to file
+            bbox_file->write(bbox_rw_string.toLocal8Bit());
         }
     }
     return QMainWindow::eventFilter(target, event);
 }
 
-
+// Reset all bboxes
 void EditWindow::on_btnReset_clicked()
 {
+    // reload image
     imgPath = ui->lstFilesList->currentItem()->text();
+    bbox_file->resize(0);
+    ui->lstBoundingBox->clear();
     imageLoader(imgPath);
 }
 
+// Get next image
 void EditWindow::on_btnNext_clicked()
-{
-    int cRow = ui->lstFilesList->currentRow();
-    if(cRow + 1 <= list.count() - 1){
-        ui->lstFilesList->setCurrentRow(cRow + 1);
-        imgPath = ui->lstFilesList->currentItem()->text();
-        imageLoader(imgPath);
-    }
-}
-
-void EditWindow::on_lstFilesList_itemClicked(QListWidgetItem *item)
 {
     ui->lstBoundingBox->clear();
     if(bbox_file != nullptr){
         bbox_file->close();
         bbox_file = nullptr;
     }
+    int cRow = ui->lstFilesList->currentRow();
+    if(cRow + 1 <= list.count() - 1){
+        ui->lstFilesList->setCurrentRow(cRow + 1);
+        imgPath = ui->lstFilesList->currentItem()->text();
+        imgName = imgPath.split("/")[imgPath.split("/").size() - 1];
+        imgName = imgName.split(".")[0];
+        // load image
+        imageLoader(imgPath);
+        // create or read annot file
+        create_and_read_annot_file(selectedDir + "/output/" + imgName + ".txt");
+    }
+}
+
+// get previous image
+void EditWindow::on_btnPrev_clicked()
+{
+    ui->lstBoundingBox->clear();
+    if(bbox_file != nullptr){
+        bbox_file->close();
+        bbox_file = nullptr;
+    }
+    int cRow = ui->lstFilesList->currentRow();
+    if(cRow - 1 > -1){
+        ui->lstFilesList->setCurrentRow(cRow - 1);
+        imgPath = ui->lstFilesList->currentItem()->text();
+        imgName = imgPath.split("/")[imgPath.split("/").size() - 1];
+        imgName = imgName.split(".")[0];
+        // load image
+        imageLoader(imgPath);
+        // create or read annot file
+        create_and_read_annot_file(selectedDir + "/output/" + imgName + ".txt");
+    }
+}
+
+// List item clicked
+void EditWindow::on_lstFilesList_itemClicked(QListWidgetItem *item)
+{
+    // clear bbox list and close previous file
+    ui->lstBoundingBox->clear();
+    if(bbox_file != nullptr){
+        bbox_file->close();
+        bbox_file = nullptr;
+    }
+    // get image path and name
     imgPath = item->text();
     imgName = imgPath.split("/")[imgPath.split("/").size() - 1];
     imgName = imgName.split(".")[0];
+    // load image
     imageLoader(imgPath);
-    if(!QFile::exists(selectedDir + "/output/" + imgName + ".txt")){
-        bbox_file = new QFile(selectedDir + "/output/" + imgName + ".txt");
+    // create or read annot file
+    create_and_read_annot_file(selectedDir + "/output/" + imgName + ".txt");
+}
+
+// all file handling
+void EditWindow::create_and_read_annot_file(QString filePath)
+{
+    bbox_file = new QFile(filePath);
+    if(!QFile::exists(filePath)){
         if (!bbox_file->open(QIODevice::ReadWrite | QIODevice::Append)){
             qDebug() << "File not opening";
             return;
         }
     }
+    // file exist then load previous bbox and show them
     else {
-        bbox_file = new QFile(selectedDir + "/output/" + imgName + ".txt");
         if (!bbox_file->open(QIODevice::ReadWrite | QIODevice::Text)){
             qDebug() << "File not opening";
             return;
         }
+        // get text stream
         stream = new QTextStream(bbox_file);
+        // iterate over file
         while (!stream->atEnd()) {
+            // get line
             QString line = stream->readLine();
-            QRegExp separator("[(,)]");
-            coordFromFile = line.split(separator);
-            bboxitem = new QListWidgetItem(line);
-
-            // TODO : Convert coordinate from normalized to original
-
-            ui->lstBoundingBox->count();
-            ui->lstBoundingBox->insertItem(ui->lstBoundingBox->count() + 1, bboxitem);\
-
-            imgRect = cv::Rect(coordFromFile[1].toInt(), coordFromFile[2].toInt() ,
-                               abs(coordFromFile[1].toInt() - coordFromFile[4].toInt()), abs(coordFromFile[2].toInt() - coordFromFile[5].toInt()));
-            cv::rectangle(image, imgRect, cv::Scalar(0, 255, 0));
-
-            img = QImage(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888);
-            img = img.rgbSwapped();
-            disImage = scene->addPixmap(QPixmap::fromImage(img));
+            coordFromFile = line.split(" ");
+            // denormalize coordinates
+            int x1 = (coordFromFile[1].toFloat() - coordFromFile[3].toFloat() / 2) * img.width();
+            int y1 = (coordFromFile[2].toFloat() - coordFromFile[4].toFloat() / 2) * img.height();
+            int x2 = (coordFromFile[1].toFloat() + coordFromFile[3].toFloat() / 2) * img.width();
+            int y2 = (coordFromFile[2].toFloat() + coordFromFile[4].toFloat() / 2) * img.height();
+            // display on bbox list
+            bbox_coordinate_string = "(" + QString::number(x1) + "," + QString::number(x1) + ") -> (" + QString::number(x2) + "," + QString::number(y2) + ")";
+            bboxitem = new QListWidgetItem(bbox_coordinate_string);
+            ui->lstBoundingBox->insertItem(ui->lstBoundingBox->count() + 1, bboxitem);
+            // draw rectangle
+            drawrect(x1, y1, x2, y2);
         }
     }
 }
 
+// Image loader
 void EditWindow::imageLoader(QString path){
     QPen outlinePen(Qt::black);
     outlinePen.setWidth(2);
@@ -173,12 +215,15 @@ void EditWindow::imageLoader(QString path){
     ui->gvMainImageView->update();
 }
 
-void EditWindow::on_btnPrev_clicked()
+// Rectangle drawing
+void EditWindow::drawrect(int x1, int y1, int x2, int y2)
 {
-    int cRow = ui->lstFilesList->currentRow();
-    if(cRow - 1 > -1){
-        ui->lstFilesList->setCurrentRow(cRow - 1);
-        imgPath = ui->lstFilesList->currentItem()->text();
-        imageLoader(imgPath);
-    }
+    imgRect = cv::Rect(x1, y1, abs(x1 - x2), abs(y1 - y2));
+    cv::rectangle(image, imgRect, cv::Scalar(0, 255, 0));
+
+    img = QImage(image.data, image.cols, image.rows, image.step, QImage::Format_RGB888);
+    img = img.rgbSwapped();
+    disImage = scene->addPixmap(QPixmap::fromImage(img));
 }
+
+

@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -34,9 +33,6 @@ public:
     QLabel *lblDirectory;
     QPushButton *btnSelectDir;
     QSpacerItem *verticalSpacer;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *label_3;
-    QComboBox *cbImageSizeSelector;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
     QPushButton *btnStart;
@@ -90,22 +86,6 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        label_3 = new QLabel(centralwidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setAlignment(Qt::AlignCenter);
-
-        horizontalLayout_2->addWidget(label_3);
-
-        cbImageSizeSelector = new QComboBox(centralwidget);
-        cbImageSizeSelector->setObjectName(QString::fromUtf8("cbImageSizeSelector"));
-
-        horizontalLayout_2->addWidget(cbImageSizeSelector);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_2);
-
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -138,7 +118,6 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "Selected Directory", nullptr));
         lblDirectory->setText(QCoreApplication::translate("MainWindow", "Directory", nullptr));
         btnSelectDir->setText(QCoreApplication::translate("MainWindow", "Select Directory", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "Image Shape :", nullptr));
         btnStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
     } // retranslateUi
 

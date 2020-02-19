@@ -25,7 +25,7 @@ class EditWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit EditWindow(QWidget *parent = nullptr, QString dir = "", QString shape = "256 x 256");
+    explicit EditWindow(QWidget *parent = nullptr, QString dir = "");
     ~EditWindow();
 
 private slots:
@@ -37,14 +37,14 @@ private slots:
 
     void on_lstFilesList_itemClicked(QListWidgetItem *item);
     void imageLoader(QString path);
-
+    void drawrect(int x1, int y1, int x2, int y2);
+    void create_and_read_annot_file(QString filePath);
     void on_btnPrev_clicked();
 
 private:
     Ui::EditWindow *ui;
     QString selectedDir;
     QGraphicsScene *scene;
-    int shape;
     QPoint s_origin;
     QPointF s_relativeOrigin;
 
@@ -53,7 +53,7 @@ private:
     cv::Mat image;
     cv::Rect imgRect;
     QGraphicsPixmapItem *disImage;
-    QString imgPath, imgName, bbox_coordinate_string;
+    QString imgPath, imgName, bbox_coordinate_string, bbox_rw_string;
     QStringList list, fileSplit, coordFromFile;
     QImage img;
     QListWidgetItem *bboxitem;
