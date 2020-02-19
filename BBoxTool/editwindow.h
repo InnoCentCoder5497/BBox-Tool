@@ -25,7 +25,7 @@ class EditWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit EditWindow(QWidget *parent = nullptr, QString dir = "");
+    explicit EditWindow(QWidget *parent = nullptr, QString dir = "", QString cnFile = "");
     ~EditWindow();
 
 private slots:
@@ -40,10 +40,13 @@ private slots:
     void drawrect(int x1, int y1, int x2, int y2);
     void create_and_read_annot_file(QString filePath);
     void on_btnPrev_clicked();
+    void denormalize_and_dra_rectangle(QStringList coordLine);
+
+    void on_btnDeleteBbox_clicked();
 
 private:
     Ui::EditWindow *ui;
-    QString selectedDir;
+    QString selectedDir, classnameFile;
     QGraphicsScene *scene;
     QPoint s_origin;
     QPointF s_relativeOrigin;
@@ -57,8 +60,8 @@ private:
     QStringList list, fileSplit, coordFromFile;
     QImage img;
     QListWidgetItem *bboxitem;
-    QFile *bbox_file = nullptr;
-    QTextStream *stream = nullptr;
+    QFile *bbox_file = nullptr, *classFile = nullptr, *tempFile = nullptr;
+    QTextStream *stream = nullptr, *tempStream = nullptr;
 };
 
 #endif // EDITWINDOW_H

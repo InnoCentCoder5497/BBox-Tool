@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_EditWindow_t {
-    QByteArrayData data[21];
-    char stringdata0[227];
+    QByteArrayData data[24];
+    char stringdata0[292];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -52,7 +52,10 @@ QT_MOC_LITERAL(16, 166, 2), // "x2"
 QT_MOC_LITERAL(17, 169, 2), // "y2"
 QT_MOC_LITERAL(18, 172, 26), // "create_and_read_annot_file"
 QT_MOC_LITERAL(19, 199, 8), // "filePath"
-QT_MOC_LITERAL(20, 208, 18) // "on_btnPrev_clicked"
+QT_MOC_LITERAL(20, 208, 18), // "on_btnPrev_clicked"
+QT_MOC_LITERAL(21, 227, 29), // "denormalize_and_dra_rectangle"
+QT_MOC_LITERAL(22, 257, 9), // "coordLine"
+QT_MOC_LITERAL(23, 267, 24) // "on_btnDeleteBbox_clicked"
 
     },
     "EditWindow\0eventFilter\0\0target\0QEvent*\0"
@@ -61,7 +64,8 @@ QT_MOC_LITERAL(20, 208, 18) // "on_btnPrev_clicked"
     "QListWidgetItem*\0item\0imageLoader\0"
     "path\0drawrect\0x1\0y1\0x2\0y2\0"
     "create_and_read_annot_file\0filePath\0"
-    "on_btnPrev_clicked"
+    "on_btnPrev_clicked\0denormalize_and_dra_rectangle\0"
+    "coordLine\0on_btnDeleteBbox_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -71,7 +75,7 @@ static const uint qt_meta_data_EditWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -79,14 +83,16 @@ static const uint qt_meta_data_EditWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   54,    2, 0x08 /* Private */,
-       6,    0,   59,    2, 0x08 /* Private */,
-       7,    0,   60,    2, 0x08 /* Private */,
-       8,    1,   61,    2, 0x08 /* Private */,
-      11,    1,   64,    2, 0x08 /* Private */,
-      13,    4,   67,    2, 0x08 /* Private */,
-      18,    1,   76,    2, 0x08 /* Private */,
-      20,    0,   79,    2, 0x08 /* Private */,
+       1,    2,   64,    2, 0x08 /* Private */,
+       6,    0,   69,    2, 0x08 /* Private */,
+       7,    0,   70,    2, 0x08 /* Private */,
+       8,    1,   71,    2, 0x08 /* Private */,
+      11,    1,   74,    2, 0x08 /* Private */,
+      13,    4,   77,    2, 0x08 /* Private */,
+      18,    1,   86,    2, 0x08 /* Private */,
+      20,    0,   89,    2, 0x08 /* Private */,
+      21,    1,   90,    2, 0x08 /* Private */,
+      23,    0,   93,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Bool, QMetaType::QObjectStar, 0x80000000 | 4,    3,    5,
@@ -96,6 +102,8 @@ static const uint qt_meta_data_EditWindow[] = {
     QMetaType::Void, QMetaType::QString,   12,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,   14,   15,   16,   17,
     QMetaType::Void, QMetaType::QString,   19,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QStringList,   22,
     QMetaType::Void,
 
        0        // eod
@@ -116,6 +124,8 @@ void EditWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->drawrect((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 6: _t->create_and_read_annot_file((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 7: _t->on_btnPrev_clicked(); break;
+        case 8: _t->denormalize_and_dra_rectangle((*reinterpret_cast< QStringList(*)>(_a[1]))); break;
+        case 9: _t->on_btnDeleteBbox_clicked(); break;
         default: ;
         }
     }
@@ -150,13 +160,13 @@ int EditWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 10;
     }
     return _id;
 }

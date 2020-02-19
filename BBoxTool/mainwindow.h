@@ -22,8 +22,10 @@ private slots:
 
     void on_btnStart_clicked();
 
+    void on_btnSelectClassFile_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QString dir;
+    QString dir, classnameFile;
 };
 #endif // MAINWINDOW_H

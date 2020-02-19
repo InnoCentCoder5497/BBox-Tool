@@ -27,10 +27,17 @@ void MainWindow::on_btnSelectDir_clicked()
 
 void MainWindow::on_btnStart_clicked()
 {
-    editwindow = new EditWindow(this, this->dir);
+    editwindow = new EditWindow(this, this->dir, this->classnameFile);
     editwindow->setAttribute(Qt::WA_DeleteOnClose);
     connect(editwindow, SIGNAL(destroyed()), this, SLOT(show()));
 
     editwindow->show();
     this->hide();
+}
+
+void MainWindow::on_btnSelectClassFile_clicked()
+{
+    classnameFile = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                    "/home");
+    ui->lblClassNameFile->setText(classnameFile);
 }

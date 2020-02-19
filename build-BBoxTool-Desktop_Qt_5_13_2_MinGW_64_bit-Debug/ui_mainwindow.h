@@ -32,6 +32,9 @@ public:
     QLabel *label_2;
     QLabel *lblDirectory;
     QPushButton *btnSelectDir;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *lblClassNameFile;
+    QPushButton *btnSelectClassFile;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
@@ -82,6 +85,21 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        lblClassNameFile = new QLabel(centralwidget);
+        lblClassNameFile->setObjectName(QString::fromUtf8("lblClassNameFile"));
+
+        horizontalLayout_2->addWidget(lblClassNameFile);
+
+        btnSelectClassFile = new QPushButton(centralwidget);
+        btnSelectClassFile->setObjectName(QString::fromUtf8("btnSelectClassFile"));
+
+        horizontalLayout_2->addWidget(btnSelectClassFile);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
         verticalSpacer = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         verticalLayout_2->addItem(verticalSpacer);
@@ -118,6 +136,8 @@ public:
         label_2->setText(QCoreApplication::translate("MainWindow", "Selected Directory", nullptr));
         lblDirectory->setText(QCoreApplication::translate("MainWindow", "Directory", nullptr));
         btnSelectDir->setText(QCoreApplication::translate("MainWindow", "Select Directory", nullptr));
+        lblClassNameFile->setText(QCoreApplication::translate("MainWindow", "Classname file", nullptr));
+        btnSelectClassFile->setText(QCoreApplication::translate("MainWindow", "Select classname file", nullptr));
         btnStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
     } // retranslateUi
 

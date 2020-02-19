@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -28,7 +29,7 @@ class Ui_EditWindow
 {
 public:
     QWidget *centralwidget;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QLabel *lblDirectoryName;
@@ -37,6 +38,9 @@ public:
     QLabel *label_4;
     QListWidget *lstFilesList;
     QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_5;
+    QComboBox *cbClassSelected;
     QGraphicsView *gvMainImageView;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
@@ -49,17 +53,18 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label_3;
     QListWidget *lstBoundingBox;
+    QPushButton *btnDeleteBbox;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *EditWindow)
     {
         if (EditWindow->objectName().isEmpty())
             EditWindow->setObjectName(QString::fromUtf8("EditWindow"));
-        EditWindow->resize(1581, 985);
+        EditWindow->resize(1136, 595);
         centralwidget = new QWidget(EditWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        horizontalLayout_2 = new QHBoxLayout(centralwidget);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_3 = new QHBoxLayout(centralwidget);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
@@ -107,10 +112,27 @@ public:
         verticalLayout->addWidget(lstFilesList);
 
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_3->addLayout(verticalLayout);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_5 = new QLabel(centralwidget);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setFont(font);
+        label_5->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_5);
+
+        cbClassSelected = new QComboBox(centralwidget);
+        cbClassSelected->setObjectName(QString::fromUtf8("cbClassSelected"));
+
+        horizontalLayout_2->addWidget(cbClassSelected);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
         gvMainImageView = new QGraphicsView(centralwidget);
         gvMainImageView->setObjectName(QString::fromUtf8("gvMainImageView"));
         gvMainImageView->setAutoFillBackground(false);
@@ -155,7 +177,7 @@ public:
         verticalLayout_2->addLayout(horizontalLayout);
 
 
-        horizontalLayout_2->addLayout(verticalLayout_2);
+        horizontalLayout_3->addLayout(verticalLayout_2);
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
@@ -174,8 +196,13 @@ public:
 
         verticalLayout_3->addWidget(lstBoundingBox);
 
+        btnDeleteBbox = new QPushButton(centralwidget);
+        btnDeleteBbox->setObjectName(QString::fromUtf8("btnDeleteBbox"));
 
-        horizontalLayout_2->addLayout(verticalLayout_3);
+        verticalLayout_3->addWidget(btnDeleteBbox);
+
+
+        horizontalLayout_3->addLayout(verticalLayout_3);
 
         EditWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(EditWindow);
@@ -195,10 +222,12 @@ public:
         label_2->setText(QCoreApplication::translate("EditWindow", "Image Size", nullptr));
         lblSelectedImageSize->setText(QCoreApplication::translate("EditWindow", "Selected Image Size", nullptr));
         label_4->setText(QCoreApplication::translate("EditWindow", "File List", nullptr));
+        label_5->setText(QCoreApplication::translate("EditWindow", "Select Class", nullptr));
         btnPrev->setText(QCoreApplication::translate("EditWindow", "<< Previous", nullptr));
         btnReset->setText(QCoreApplication::translate("EditWindow", "Reset Image", nullptr));
         btnNext->setText(QCoreApplication::translate("EditWindow", "Next >>", nullptr));
         label_3->setText(QCoreApplication::translate("EditWindow", "Bounding Boxes :", nullptr));
+        btnDeleteBbox->setText(QCoreApplication::translate("EditWindow", "Delete Bbox", nullptr));
     } // retranslateUi
 
 };
